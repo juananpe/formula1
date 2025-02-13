@@ -21,7 +21,7 @@ public class BusinessLogic implements BlInterface {
 
     @Override
     public void storePilot(String name, String nat, int pts) {
-
+        db.storePilot(name, nat, pts);
     }
 
     @Override

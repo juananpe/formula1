@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextInputDialog;
 
 public class MainController {
 
@@ -31,6 +32,22 @@ public class MainController {
         // delete the selected pilot from the list
         drivers.remove(selectedPilot);
 
+    }
+
+    @FXML
+    void onAdd(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Add New Driver");
+        dialog.setHeaderText("Enter driver details");
+        dialog.setContentText("Driver name:");
+
+        dialog.showAndWait().ifPresent(name -> {
+            if (!name.isEmpty()) {
+                bl.storePilot(name, "Unknown", 0);
+                drivers.clear();
+                drivers.addAll(bl.getPilots());
+            }
+        });
     }
 
     @FXML

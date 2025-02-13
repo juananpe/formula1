@@ -15,6 +15,7 @@
          </font>
       </Label>
       <Button layoutX="392.0" layoutY="53.0" mnemonicParsing="false" onAction="#onDelete" text="Delete Selected" />
+      <Button layoutX="392.0" layoutY="93.0" mnemonicParsing="false" onAction="#onAdd" text="Add Driver" />
       <Label layoutX="51.0" layoutY="361.0" text="Number of Drivers:" />
       <Label fx:id="numDrivers" layoutX="171.0" layoutY="361.0" text=" " />
    </children>
