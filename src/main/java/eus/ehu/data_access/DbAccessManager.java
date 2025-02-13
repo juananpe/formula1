@@ -73,6 +73,17 @@ public class DbAccessManager {
         System.out.println(rowsDeleted + " pilot(s) deleted");
     }
 
+    /**
+     * Deletes a pilot from the database
+     * @param p the pilot to delete
+     */
+    public void deletePilot(Pilot p) {
+        db.getTransaction().begin();
+        db.remove(p);
+        db.getTransaction().commit();
+        System.out.println(p + " has been deleted");
+    }
+
     public void close() {
         db.close();
         System.out.println("DataBase is closed");

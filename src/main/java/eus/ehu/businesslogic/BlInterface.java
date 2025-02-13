@@ -9,5 +9,6 @@ public interface BlInterface {
     List<Pilot> getPilotsByNationality(String nat);
     void storePilot(String name, String nat, int pts);
     void deletePilotByName(String name);
+    void deletePilot(Pilot selectedPilot);
 
 }

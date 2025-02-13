@@ -1,9 +1,7 @@
 package eus.ehu.test;
 
 import eus.ehu.data_access.DbAccessManager;
-import eus.ehu.domain.Pilot;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -38,6 +36,7 @@ public class Main {
         String pilotName = scanner.nextLine();
         dataManager.deletePilotByName(pilotName);
 
+        scanner.close();
         dataManager.close();
     }
 }

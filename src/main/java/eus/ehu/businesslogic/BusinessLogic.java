@@ -28,4 +28,9 @@ public class BusinessLogic implements BlInterface {
     public void deletePilotByName(String name) {
 
     }
+
+    @Override
+    public void deletePilot(Pilot p) {
+        db.deletePilot(p);
+    }
 }
