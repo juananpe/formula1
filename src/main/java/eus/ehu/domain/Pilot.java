@@ -15,7 +15,18 @@ public class Pilot {
         this.points = pts;
     }
 
+    // overloaded constructor
+    public Pilot(String name, String nat) {
+        this.name = name;
+        this.nationality = nat;
+        this.points = 0;
+    }
 
+    public Pilot(String name) {
+        this.name = name;
+        this.nationality = "unknown";
+        this.points = 0;
+    }
 
     public Pilot() {
 

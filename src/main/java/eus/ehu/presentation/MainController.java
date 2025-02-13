@@ -38,6 +38,10 @@ public class MainController {
         drivers = FXCollections.observableArrayList();
         drivers.addAll(bl.getPilots());
         listDrivers.setItems(drivers);
+        
+        // Create a binding that updates when the list changes
+        numDrivers.setText(String.valueOf(drivers.size()));
+        drivers.addListener((javafx.collections.ListChangeListener<Pilot>) c -> numDrivers.setText(String.valueOf(drivers.size())));
     }
 
 
