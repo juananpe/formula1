@@ -1,6 +1,7 @@
 package eus.ehu.data_access;
 
 import eus.ehu.domain.Pilot;
+import eus.ehu.domain.Team;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Query;
@@ -84,9 +85,32 @@ public class DbAccessManager {
         System.out.println(p + " has been deleted");
     }
 
+    public void storeTeam(String name, String country) {
+        db.getTransaction().begin();
+        Team team = new Team(name, country);
+        db.persist(team);
+        db.getTransaction().commit();
+        System.out.println("Team " + team + " has been saved");
+    }
+
+    public Team findTeamByName(String name) {
+        return db.find(Team.class, name);
+    }
+
+    public void addPilotToTeam(Pilot pilot, Team team) {
+        db.getTransaction().begin();
+        team.addPilot(pilot);
+        db.getTransaction().commit();
+        System.out.println("Pilot " + pilot + " added to team " + team);
+    }
+
     public void close() {
         db.close();
-        System.out.println("DataBase is closed");
+        System.out.println("DataBase closed");
+    }
+
+    public Pilot findPilotByName(String name) {
+        return db.find(Pilot.class, name);
     }
 
 }

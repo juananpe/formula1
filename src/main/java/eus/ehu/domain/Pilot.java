@@ -1,6 +1,7 @@
 package eus.ehu.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Pilot {
@@ -8,6 +9,9 @@ public class Pilot {
     String name;
     String nationality;
     int points;
+
+    @ManyToOne
+    private Team team;
 
     public Pilot(String name, String nat, int pts) {
         this.name = name;
@@ -36,8 +40,13 @@ public class Pilot {
         this.points += morePoints;
     }
 
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
     @Override
     public String toString() {
-        return String.format("%s (%s) - %d points", name, nationality, points);
+        String teamName = (team != null) ? team.toString() : "No team";
+        return String.format("%s (%s) - %d points [%s]", name, nationality, points, teamName);
     }
 }

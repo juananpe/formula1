@@ -12,6 +12,7 @@
 
         <property name="hibernate.physical_naming_strategy">org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl</property>
         <mapping class="eus.ehu.domain.Pilot" />
+        <mapping class="eus.ehu.domain.Team" />
 
 
     </session-factory>
