@@ -1,5 +1,7 @@
 # Adding Teams to Formula 1 Project - Understanding ManyToOne Relationships
 
+![image](image.png)
+
 ## What Changed?
 
 We added a new feature to our Formula 1 project: Teams! Now each pilot belongs to a team (like in real F1), and a team can have multiple pilots.
