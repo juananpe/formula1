@@ -1,13 +1,18 @@
 package eus.ehu.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Pilot {
     @Id
-    String name;
-    String nationality;
-    int points;
+    private String name;
+    private String nationality;
+    private int points;
+
+    @ManyToOne
+    private Team team;
+
 
     public Pilot(String name, String nat, int pts) {
         this.name = name;
@@ -38,6 +43,11 @@ public class Pilot {
 
     @Override
     public String toString() {
-        return String.format("%s (%s) - %d points", name, nationality, points);
+
+        return String.format("%s (%s) - %d points . Team : %s", name, nationality, points, team);
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }

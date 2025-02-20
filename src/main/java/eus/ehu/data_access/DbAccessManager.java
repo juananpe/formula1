@@ -1,6 +1,7 @@
 package eus.ehu.data_access;
 
 import eus.ehu.domain.Pilot;
+import eus.ehu.domain.Team;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Query;
@@ -23,6 +24,7 @@ public class DbAccessManager {
         try {
             emf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         } catch (Exception e) {
+            System.out.println("Error creating EntityManagerFactory: " + e.getMessage());
             StandardServiceRegistryBuilder.destroy(registry);
         }
 
@@ -83,6 +85,56 @@ public class DbAccessManager {
         db.getTransaction().commit();
         System.out.println(p + " has been deleted");
     }
+
+    /**
+     * Stores a team in the database
+     * @param name the name of the team
+     * @param country the country of the team
+     */
+    public void storeTeam(String name, String country){
+        db.getTransaction().begin();
+        Team team = new Team(name, country);
+        db.persist(team);
+        db.getTransaction().commit();
+        System.out.println(team + " has been saved");
+    }
+
+    /**
+     * Retrieves a team from the database by its name
+     * @param name the name of the team
+     * @return the team with the given name
+     */
+    public Team findTeamByName(String name){
+        TypedQuery<Team> q = db.createQuery(
+                "SELECT t FROM Team t WHERE t.name = :name", Team.class);
+        q.setParameter("name", name);
+        return q.getSingleResult();
+    }
+
+    /**
+     * Retrieves a pilot from the database by their name
+     * @param name the name of the pilot
+     * @return the pilot with the given name
+     */
+    public Pilot findPilotByName(String name){
+        TypedQuery<Pilot> q = db.createQuery(
+                "SELECT p FROM Pilot p WHERE p.name = :name", Pilot.class);
+        q.setParameter("name", name);
+        return q.getSingleResult();
+    }
+
+    /**
+     * Adds a pilot to a team
+     * @param pilot
+     * @param team
+     */
+    public void addPilotToTeam(Pilot pilot, Team team){
+        db.getTransaction().begin();
+        team.addPilot(pilot);
+        db.getTransaction().commit();
+        System.out.println(pilot + " has been added to " + team);
+    }
+
 
     public void close() {
         db.close();
