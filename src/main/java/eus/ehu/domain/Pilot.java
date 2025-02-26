@@ -1,11 +1,19 @@
 package eus.ehu.domain;
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Pilot {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String nationality;
     private int points;
@@ -13,6 +21,8 @@ public class Pilot {
     @ManyToOne
     private Team team;
 
+    @ManyToMany
+    private Set<Race> races = new HashSet<>();
 
     public Pilot(String name, String nat, int pts) {
         this.name = name;
@@ -49,5 +59,29 @@ public class Pilot {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    /**
+     * Add a race to this pilot's races
+     * @param race the race to add
+     */
+    public void addRace(Race race) {
+        races.add(race);
+    }
+
+    /**
+     * Get all races this pilot participates in
+     * @return set of races
+     */
+    public Set<Race> getRaces() {
+        return races;
+    }
+
+    /**
+     * Get the name of this pilot
+     * @return the name
+     */
+    public String getName() {
+        return name;
     }
 }

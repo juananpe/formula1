@@ -2,15 +2,16 @@ package eus.ehu.test;
 
 import eus.ehu.data_access.DbAccessManager;
 import eus.ehu.domain.Pilot;
+import eus.ehu.domain.Race;
 import eus.ehu.domain.Team;
 
-import java.util.Scanner;
+import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
         DbAccessManager dataManager = new DbAccessManager();
 
-        /*dataManager.storePilot("Lewis Hamilton", "British", 380);
+        dataManager.storePilot("Lewis Hamilton", "British", 380);
         // Include here additional instructions for another 6 pilots. You can
         // get info at https://www.formula1.com/en/drivers.html
         dataManager.storePilot("Valtteri Bottas", "Finnish", 223);
@@ -18,50 +19,72 @@ public class Main {
         dataManager.storePilot("Sergio Perez", "Mexican", 125);
         dataManager.storePilot("Lando Norris", "British", 132);
         dataManager.storePilot("Charles Leclerc", "Monaco", 98);
-        dataManager.storePilot("Daniel Ricciardo", "Australian", 115);*/
+        dataManager.storePilot("Daniel Ricciardo", "Australian", 115);
 
-/*        List<Pilot> pilotList = dataManager.getAllPilots();
-        System.out.println("Database content:");
-        for (Pilot p : pilotList)
-            System.out.println(p);
-        System.out.println();*/
-
-        /*List<Pilot> britishPilots = dataManager.getPilotsByNationality("British");
-        System.out.println("British Pilots:");
-        for (Pilot p : britishPilots)
-            System.out.println(p);
-        System.out.println();
-
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the name of the pilot to delete: ");
-        String pilotName = scanner.nextLine();
-        dataManager.deletePilotByName(pilotName);
-        scanner.close();
-        */
-
-       /*
-        Creates the Mercedes F1 team
-        Creates two pilots: Lewis Hamilton and George Russell
-        Associates both pilots with the Mercedes team
-        Retrieves and prints all pilots to verify the relationships
-        */
-
-        dataManager.storeTeam("Mercedes", "Germany");
-        dataManager.storePilot("Lewis Hamilton", "British", 380);
-        dataManager.storePilot("George Russell", "British", 16);
 
         Pilot hamilton = dataManager.findPilotByName("Lewis Hamilton");
-        Pilot russell = dataManager.findPilotByName("George Russell");
+        Pilot verstappen = dataManager.findPilotByName("Max Verstappen");
+        Pilot leclerc = dataManager.findPilotByName("Charles Leclerc");
 
+        // Create races
+        Race monzaGP = new Race("Monza", LocalDate.parse("2023-09-03"));
+        Race monacaGP = new Race("Monte Carlo", LocalDate.parse("2023-05-28"));
+        Race silverstone = new Race("Silverstone", LocalDate.parse("2023-07-09"));
+
+        // Store races in the database
+        dataManager.storeRace(monzaGP);
+        dataManager.storeRace(monacaGP);
+        dataManager.storeRace(silverstone);
+
+        // Add drivers to races using the new method
+        dataManager.addPilotToRace(hamilton, monzaGP);
+        dataManager.addPilotToRace(verstappen, monzaGP);
+        dataManager.addPilotToRace(leclerc, monzaGP);
+
+        dataManager.addPilotToRace(hamilton, monacaGP);
+        dataManager.addPilotToRace(verstappen, monacaGP);
+        dataManager.addPilotToRace(leclerc, monacaGP);
+
+        dataManager.addPilotToRace(hamilton, silverstone);
+        dataManager.addPilotToRace(verstappen, silverstone);
+
+        // Create teams
+        dataManager.storeTeam("Mercedes", "Germany");
+        dataManager.storeTeam("Red Bull Racing", "Austria");
+        dataManager.storeTeam("Ferrari", "Italy");
+        dataManager.storeTeam("McLaren", "United Kingdom");
+        dataManager.storeTeam("Alfa Romeo", "Switzerland");
+        dataManager.storeTeam("Alpine", "France");
+
+        // Get teams from database
         Team mercedes = dataManager.findTeamByName("Mercedes");
-        dataManager.addPilotToTeam(hamilton, mercedes);
-        dataManager.addPilotToTeam(russell, mercedes);
+        Team redBull = dataManager.findTeamByName("Red Bull Racing");
+        Team ferrari = dataManager.findTeamByName("Ferrari");
+        Team mclaren = dataManager.findTeamByName("McLaren");
+        Team alfaRomeo = dataManager.findTeamByName("Alfa Romeo");
+        Team alpine = dataManager.findTeamByName("Alpine");
 
-        // list all pilots
-        System.out.println("All pilots:");
-        for (Pilot p : dataManager.getAllPilots())
+        // Assign drivers to teams
+        dataManager.addPilotToTeam(hamilton, mercedes);
+        dataManager.addPilotToTeam(dataManager.findPilotByName("Valtteri Bottas"), alfaRomeo);
+        dataManager.addPilotToTeam(verstappen, redBull);
+        dataManager.addPilotToTeam(dataManager.findPilotByName("Sergio Perez"), redBull);
+        dataManager.addPilotToTeam(dataManager.findPilotByName("Lando Norris"), mclaren);
+        dataManager.addPilotToTeam(leclerc, ferrari);
+        dataManager.addPilotToTeam(dataManager.findPilotByName("Daniel Ricciardo"), alpine);
+
+        // Print all pilots with their teams
+        System.out.println("\nDrivers and their teams:");
+        for (Pilot p : dataManager.getAllPilots()) {
             System.out.println(p);
+        }
+
+        // Print race participants again to see teams
+        System.out.println("\nRace Entries with Teams:");
+        System.out.println("Monza GP Drivers: " + monzaGP.getDrivers());
+        System.out.println("Monaco GP Drivers: " + monacaGP.getDrivers());
+        System.out.println("Silverstone GP Drivers: " + silverstone.getDrivers());
+
 
 
         dataManager.close();

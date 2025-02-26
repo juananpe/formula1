@@ -2,6 +2,7 @@ package eus.ehu.data_access;
 
 import eus.ehu.domain.Pilot;
 import eus.ehu.domain.Team;
+import eus.ehu.domain.Race;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Query;
@@ -135,6 +136,40 @@ public class DbAccessManager {
         System.out.println(pilot + " has been added to " + team);
     }
 
+    /**
+     * Adds a pilot to a race and persists the relationship
+     * @param pilot the pilot to add
+     * @param race the race to add the pilot to
+     */
+    public void addPilotToRace(Pilot pilot, Race race) {
+        db.getTransaction().begin();
+        
+        // If the race is not yet persisted, persist it first
+        if (race.getId() == null) {
+            db.persist(race);
+        }
+        
+        // Update the relationship
+        race.addDriver(pilot);
+        
+        // Merge the entities to update them in the database
+        db.merge(pilot);
+        db.merge(race);
+        
+        db.getTransaction().commit();
+        System.out.println(pilot.getName() + " has been added to race: " + race.getName());
+    }
+
+    /**
+     * Stores a race in the database
+     * @param race the race to store
+     */
+    public void storeRace(Race race) {
+        db.getTransaction().begin();
+        db.persist(race);
+        db.getTransaction().commit();
+        System.out.println("Race " + race.getName() + " has been saved");
+    }
 
     public void close() {
         db.close();
