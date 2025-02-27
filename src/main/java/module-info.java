@@ -5,7 +5,7 @@ module eus.ehu.formula1 {
     requires org.hibernate.orm.core;
     requires com.h2database;
 
-    opens eus.ehu.domain to org.hibernate.orm.core;
+    opens eus.ehu.domain to org.hibernate.orm.core, javafx.base;
     opens eus.ehu.presentation to javafx.fxml;
     exports eus.ehu.presentation;
 }

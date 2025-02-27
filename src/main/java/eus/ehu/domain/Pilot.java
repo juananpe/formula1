@@ -84,4 +84,20 @@ public class Pilot {
     public String getName() {
         return name;
     }
+
+    /**
+     * Get the nationality of this pilot
+     * @return the nationality
+     */
+    public String getNationality() {
+        return nationality;
+    }
+
+    /**
+     * Get the points of this pilot
+     * @return the points
+     */
+    public int getPoints() {
+        return points;
+    }
 }
