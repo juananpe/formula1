@@ -10,9 +10,9 @@ import java.io.IOException;
 public class MainWin extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("drivers.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mainLayout.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Formula1 Drivers");
+        stage.setTitle("Formula 1 Dashboard");
         stage.setScene(scene);
         stage.show();
     }
