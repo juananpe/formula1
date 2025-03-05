@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.presentation.MainController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.presentation.MainController">
    <children>
       <TableView fx:id="tableDrivers" layoutX="51.0" layoutY="53.0" prefHeight="292.0" prefWidth="475.0">
          <columns>
@@ -15,6 +15,9 @@
             <TableColumn fx:id="nationalityColumn" prefWidth="150.0" text="Nationality" />
             <TableColumn fx:id="pointsColumn" prefWidth="150.0" text="Points" />
          </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
       <Label layoutX="51.0" layoutY="23.0" text="Formula 1 Drivers">
          <font>
