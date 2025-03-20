@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.LoadException;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -49,7 +50,7 @@ public class MainLayoutController {
                 contentCache.put(fxmlFile, content);
             }
             contentPane.setCenter(content);
-        } catch (IOException e) {
+        } catch (LoadException e) {
             // alert the user
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -59,8 +60,9 @@ public class MainLayoutController {
 
             // exit javafx application
             Platform.exit();
-            
 
+        } catch (IOException e) {
+            System.out.println("Error loading content");
         }
     }
 

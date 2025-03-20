@@ -24,13 +24,12 @@ public class DbAccessManager {
                 .build();
         try {
             emf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+            db = emf.createEntityManager();
+            System.out.println("DataBase opened");
         } catch (Exception e) {
-            System.out.println("Error creating EntityManagerFactory: " + e.getMessage());
             StandardServiceRegistryBuilder.destroy(registry);
+            throw new RuntimeException("Error creating EntityManagerFactory: " + e.getMessage(), e);
         }
-
-        db = emf.createEntityManager();
-        System.out.println("DataBase opened");
 
     }
 
