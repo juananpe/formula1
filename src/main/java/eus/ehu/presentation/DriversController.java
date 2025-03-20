@@ -12,7 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class MainController {
+public class DriversController {
 
     @FXML
     private TableView<Pilot> tableDrivers;
