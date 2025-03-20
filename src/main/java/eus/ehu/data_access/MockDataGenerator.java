@@ -1,13 +1,12 @@
-package eus.ehu.test;
+package eus.ehu.data_access;
 
-import eus.ehu.data_access.DbAccessManager;
 import eus.ehu.domain.Pilot;
 import eus.ehu.domain.Race;
 import eus.ehu.domain.Team;
 
 import java.time.LocalDate;
 
-public class Main {
+public class MockDataGenerator {
     public static void main(String[] args) {
         DbAccessManager dataManager = new DbAccessManager();
 

@@ -1,4 +1,4 @@
-package eus.ehu.test;
+package eus.ehu.data_access;
 
 import org.h2.tools.Server;
 

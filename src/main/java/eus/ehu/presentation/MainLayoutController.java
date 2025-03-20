@@ -1,8 +1,10 @@
 package eus.ehu.presentation;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -48,7 +50,17 @@ public class MainLayoutController {
             }
             contentPane.setCenter(content);
         } catch (IOException e) {
-            e.printStackTrace();
+            // alert the user
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error loading content");
+            alert.setContentText("Maybe you forgot to run the H2WebLauncher class?");
+            alert.showAndWait();
+
+            // exit javafx application
+            Platform.exit();
+            
+
         }
     }
 
